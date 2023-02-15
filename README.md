@@ -13,7 +13,7 @@ Tenemos 4 activities: Welcome, Sign Up, Sign In y Start.
 
 > Start: Activity que verifica lo primero si el email y token están correctos, si lo están nos muestran una bienvenida y si no, nos piden que hagamos Sign Out. Si le damos al botón de Sign Out nos lleva a la activity de Welcome.
 
-Para poder probar correctamenta el funcionamiento está implementado un "Mock" que nos simulará nuestro endpoint, la clase se llama MyMockAPI.
+Para poder probar correctamenta el funcionamiento, está implementado un "Mock" que nos simulará nuestro endpoint, la clase se llama MyMockAPI.
 
 ### Pre-requisitos 📋
 
