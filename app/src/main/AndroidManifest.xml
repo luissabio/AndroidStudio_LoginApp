@@ -15,8 +15,18 @@
         android:theme="@style/Theme.LoginApplication"
         tools:targetApi="31">
         <activity
+            android:name=".EditInfoActivity"
+            android:exported="false"
+            android:label="@string/EditInfo_activity"
+            android:parentActivityName=".StartActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".StartActivity" />
+        </activity>
+        <activity
             android:name=".StartActivity"
-            android:exported="false">
+            android:exported="false"
+            android:label="@string/Start_activity">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

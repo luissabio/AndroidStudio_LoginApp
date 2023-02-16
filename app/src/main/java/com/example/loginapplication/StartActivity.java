@@ -2,11 +2,20 @@ package com.example.loginapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Iterator;
 
 public class StartActivity extends AppCompatActivity {
 
@@ -15,6 +24,7 @@ public class StartActivity extends AppCompatActivity {
     private boolean isLogged = false;
 
     private TextView mStartText;
+    private LinearLayout mLinearLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,8 +35,58 @@ public class StartActivity extends AppCompatActivity {
         email = intent.getStringExtra("email");
         token = intent.getStringExtra("token");
         mStartText = findViewById(R.id.StartText);
+        mLinearLayout = findViewById(R.id.linear_layout);
 
         isLogged = sessionValidate();
+
+        if(isLogged){
+            showUserInformation();
+        }
+    }
+
+    private void showUserInformation(){
+        try {
+            JSONObject jsonObject = new JSONObject(MyMockAPI_UserInfo.GET_UserInfo(email, token));
+
+            Iterator<String> keys = jsonObject.keys();
+            while (keys.hasNext()) {
+                String key = keys.next();
+                Object value = jsonObject.get(key);
+
+                TextView textViewKey = new TextView(this);
+                textViewKey.setText(key + ": ");
+                mLinearLayout.addView(textViewKey);
+
+                if (value instanceof String) {
+                    TextView textViewValue = new TextView(this);
+                    textViewValue.setText((String) value);
+                    mLinearLayout.addView(textViewValue);
+                } else if (value instanceof Boolean) {
+                    TextView textViewValue = new TextView(this);
+                    textViewValue.setText(value.toString());
+                    mLinearLayout.addView(textViewValue);
+                } else if (value instanceof Integer) {
+                    TextView textViewValue = new TextView(this);
+                    textViewValue.setText(Integer.toString((int) value));
+                    mLinearLayout.addView(textViewValue);
+                } else if (value instanceof JSONArray) {
+                    JSONArray jsonArray = (JSONArray) value;
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject item = jsonArray.getJSONObject(i);
+
+                        TextView textViewItemKey = new TextView(this);
+                        textViewItemKey.setText("- " + item.getString("name") + ": ");
+                        mLinearLayout.addView(textViewItemKey);
+
+                        TextView textViewItemValue = new TextView(this);
+                        textViewItemValue.setText(item.getString("level"));
+                        mLinearLayout.addView(textViewItemValue);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            Log.d("Json", e.getMessage());
+        }
     }
 
     private boolean sessionValidate(){
@@ -35,7 +95,7 @@ public class StartActivity extends AppCompatActivity {
             return false;
         }
         else{
-            String result = MyMockAPI.GET_EmailAndToken(email, token);
+            String result = MyMockAPI_Credentials.GET_EmailAndToken(email, token);
             if (result.equals("OK")){
                 mStartText.setText("Hello " + email + ", you are logged in with the token: "+ token + ".");
                 return true;
@@ -50,5 +110,38 @@ public class StartActivity extends AppCompatActivity {
     public void signOut(View view) {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+    }
+
+    public void editInfo(View view) {
+        if (isLogged){
+            Intent intent = new Intent(this, EditInfoActivity.class);
+            intent.putExtra("email", email);
+            intent.putExtra("token", token);
+            startActivityForResult(intent, 1);
+            //startActivity(intent);
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("email", email);
+        outState.putString("token", token);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        email = savedInstanceState.getString("email");
+        token = savedInstanceState.getString("email");
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
+            mLinearLayout.removeAllViews();
+            showUserInformation();
+        }
     }
 }

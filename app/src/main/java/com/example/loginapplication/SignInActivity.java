@@ -48,7 +48,7 @@ public class SignInActivity extends AppCompatActivity {
             showToast("Invalid Email Format");
         }
         else{
-            String[] result = MyMockAPI.GET_EmailAndPassword(mEmailView.getText().toString(), mPasswordView.getText().toString()).split("\\|");
+            String[] result = MyMockAPI_Credentials.GET_EmailAndPassword(mEmailView.getText().toString(), mPasswordView.getText().toString()).split("\\|");
             if (result[0].equals("OK")){
                 Intent intent = new Intent(this, StartActivity.class);
                 intent.putExtra("email", mEmailView.getText().toString());

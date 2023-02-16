@@ -3,11 +3,14 @@
     <string name="main_activity">Welcome</string>
     <string name="SignIn_activity">Sign In</string>
     <string name="SignUp_activity">Sign Up</string>
+    <string name="Start_activity">Start</string>
+    <string name="EditInfo_activity">Edit Info</string>
     <string name="login_form_username">Username</string>
     <string name="login_form_password">Password</string>
     <string name="login_form_login">Enter</string>
     <string name="author">Luis\' App</string>
     <string name="start_signOut">Sign Out</string>
+    <string name="start_editInfo">Edit Info</string>
     <string name="passwordHint">1234asdf</string>
     <string name="emailHint">luis@gmail.com</string>
 </resources>
