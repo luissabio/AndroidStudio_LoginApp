@@ -66,11 +66,23 @@ public class EditInfoActivity extends AppCompatActivity {
         return jsonObject.toString();
     }
 
-    public void enter(View view) {
+    public void editInfo(View view) {
         if(isLogged){
             String jsonData = generateJsonWithInput();
             String result = MyMockAPI_UserInfo.PUT_UserInfo(email, jsonData, token);
 
+            Intent intent = new Intent();
+            setResult(RESULT_OK, intent);
+            finish();
+        }
+        else{
+            Toast toast = Toast.makeText(this, "Not Logged", Toast.LENGTH_SHORT);
+            toast.show();
+        }
+    }
+
+    public void cancel(View view) {
+        if(isLogged){
             Intent intent = new Intent();
             setResult(RESULT_OK, intent);
             finish();

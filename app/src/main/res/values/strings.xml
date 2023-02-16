@@ -13,4 +13,5 @@
     <string name="start_editInfo">Edit Info</string>
     <string name="passwordHint">1234asdf</string>
     <string name="emailHint">luis@gmail.com</string>
+    <string name="cancel">Cancel</string>
 </resources>

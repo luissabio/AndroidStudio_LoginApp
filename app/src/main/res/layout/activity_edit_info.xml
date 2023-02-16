@@ -23,16 +23,29 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/enterButton"
-        android:layout_width="wrap_content"
+        android:id="@+id/cancelButton"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:onClick="enter"
-        android:text="@string/login_form_login"
+        android:layout_marginRight="5dp"
+        android:onClick="cancel"
+        android:text="@string/cancel"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/enterButton"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <Button
+        android:id="@+id/enterButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:onClick="editInfo"
+        android:text="@string/start_editInfo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/cancelButton" />
+
     <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:paddingTop="15dp"
@@ -40,7 +53,8 @@
         app:layout_constraintBottom_toTopOf="@+id/enterButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Title">
+        app:layout_constraintTop_toBottomOf="@+id/Title"
+        app:layout_constraintVertical_bias="1.0">
 
         <LinearLayout
             android:layout_width="match_parent"
