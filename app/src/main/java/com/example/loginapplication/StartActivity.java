@@ -108,8 +108,13 @@ public class StartActivity extends AppCompatActivity {
     }
 
     public void signOut(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        MyMockAPI_Credentials.DELETE_EmailAndToken(email);
+        email = "";
+        token = "";
+        isLogged = false;
+        finish();
+        //Intent intent = new Intent(this, MainActivity.class);
+        //startActivity(intent);
     }
 
     public void editInfo(View view) {
