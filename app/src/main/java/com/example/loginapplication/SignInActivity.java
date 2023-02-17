@@ -53,6 +53,7 @@ public class SignInActivity extends AppCompatActivity {
                 Intent intent = new Intent(this, StartActivity.class);
                 intent.putExtra("email", mEmailView.getText().toString());
                 intent.putExtra("token", result[1]);
+                mPasswordView.setText("");
                 startActivity(intent);
             }
             else{
@@ -85,13 +86,11 @@ public class SignInActivity extends AppCompatActivity {
 
     private void emailAutoCompleteWithPermissions(){
         String[] emailList = getAllEmailsFromContacts();
-        //Creating the instance of ArrayAdapter containing list of fruit names
         ArrayAdapter<String> adapter = new ArrayAdapter<String>
                 (this, android.R.layout.select_dialog_item, emailList);
-        //Getting the instance of AutoCompleteTextView
         mEmailView = (AutoCompleteTextView) findViewById(R.id.mEmailView);
-        mEmailView.setThreshold(1);//will start working from first character
-        mEmailView.setAdapter(adapter);//setting the adapter data into the AutoCompleteTextView
+        mEmailView.setThreshold(1);
+        mEmailView.setAdapter(adapter);
     }
 
     private String[] getAllEmailsFromContacts() {
@@ -120,7 +119,7 @@ public class SignInActivity extends AppCompatActivity {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 emailAutoComplete();
             } else {
-                showToast("Permissions were to autofill the mail");
+                showToast("Contact permissions were to autofill the mail");
             }
         }
     }

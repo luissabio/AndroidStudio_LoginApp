@@ -19,8 +19,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="70dp"
-            android:layout_marginBottom="70dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="50dp"
             android:orientation="vertical"
             android:padding="24dp">
 
@@ -37,10 +37,40 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/login_form_username"
+                android:text="@string/login_form_name"
                 android:textSize="22sp" />
 
             <EditText
+                android:id="@+id/mNameView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="@string/nameHint"
+                android:inputType="text" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/login_form_years"
+                android:textSize="22sp" />
+
+            <EditText
+                android:id="@+id/mYearsView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="@string/yearsHint"
+                android:inputType="number" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/login_form_username"
+                android:textSize="22sp" />
+
+            <AutoCompleteTextView
                 android:id="@+id/mEmailView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

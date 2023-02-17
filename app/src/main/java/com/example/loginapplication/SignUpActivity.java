@@ -12,11 +12,15 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,18 +30,20 @@ public class SignUpActivity extends AppCompatActivity {
 
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
+    private EditText mNameView;
+    private EditText mYearsView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_in);
+        setContentView(R.layout.activity_sign_up);
 
         mEmailView = (AutoCompleteTextView) findViewById(R.id.mEmailView);
         mPasswordView = (EditText) findViewById(R.id.mPasswordView);
+        mNameView = (EditText) findViewById(R.id.mNameView);
+        mYearsView = (EditText) findViewById(R.id.mYearsView);
 
         emailAutoComplete();
-
-
     }
 
     public void enter(View view) {
@@ -52,6 +58,14 @@ public class SignUpActivity extends AppCompatActivity {
         else{
             String result = MyMockAPI_Credentials.POST_EmailAndPassword(mEmailView.getText().toString(), mPasswordView.getText().toString());
             if (result.equals("OK")){
+                String info = getStringJson();
+                String[] resultToken = MyMockAPI_Credentials.GET_EmailAndPassword(mEmailView.getText().toString(), mPasswordView.getText().toString()).split("\\|");
+                MyMockAPI_UserInfo.PUT_UserInfo(mEmailView.getText().toString(), info, resultToken[1]);
+                MyMockAPI_Credentials.DELETE_EmailAndToken(mEmailView.getText().toString());
+                mEmailView.setText("");
+                mPasswordView.setText("");
+                mNameView.setText("");
+                mYearsView.setText("");
                 Intent intent = new Intent(this, SignInActivity.class);
                 startActivity(intent);
             }
@@ -61,6 +75,24 @@ public class SignUpActivity extends AppCompatActivity {
                 showToast(result.split("\\|")[1]);
             }
         }
+    }
+    private String getStringJson(){
+        JSONObject jsonObject = new JSONObject();
+        try {
+            if (!mNameView.getText().toString().isEmpty() && mNameView.getText().toString() != null){
+                jsonObject.put("name", mNameView.getText().toString());
+            }
+            if (!mYearsView.getText().toString().isEmpty() && mYearsView.getText().toString() != null){
+                if (Integer.parseInt(mYearsView.getText().toString()) > 0){
+                    jsonObject.put("years", Integer.parseInt(mYearsView.getText().toString()));
+                }
+            }
+        } catch (
+                JSONException e) {
+            Log.d("Json", e.getMessage());
+        }
+
+        return jsonObject.toString();
     }
 
     private void showToast(String text){
@@ -85,13 +117,11 @@ public class SignUpActivity extends AppCompatActivity {
 
     private void emailAutoCompleteWithPermissions(){
         String[] emailList = getAllEmailsFromContacts();
-        //Creating the instance of ArrayAdapter containing list of fruit names
         ArrayAdapter<String> adapter = new ArrayAdapter<String>
                 (this, android.R.layout.select_dialog_item, emailList);
-        //Getting the instance of AutoCompleteTextView
         mEmailView = (AutoCompleteTextView) findViewById(R.id.mEmailView);
-        mEmailView.setThreshold(1);//will start working from first character
-        mEmailView.setAdapter(adapter);//setting the adapter data into the AutoCompleteTextView
+        mEmailView.setThreshold(1);
+        mEmailView.setAdapter(adapter);
     }
 
     private String[] getAllEmailsFromContacts() {
@@ -120,7 +150,7 @@ public class SignUpActivity extends AppCompatActivity {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 emailAutoComplete();
             } else {
-                showToast("Permissions were to autofill the mail");
+                showToast("Contact permissions were to autofill the mail");
             }
         }
     }

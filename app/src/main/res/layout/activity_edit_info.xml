@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:onClick="editInfo"
-        android:text="@string/start_editInfo"
+        android:text="@string/editInfo_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/cancelButton" />

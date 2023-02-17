@@ -7,11 +7,16 @@
     <string name="EditInfo_activity">Edit Info</string>
     <string name="login_form_username">Username</string>
     <string name="login_form_password">Password</string>
+    <string name="login_form_name">Name</string>
+    <string name="login_form_years">Years</string>
     <string name="login_form_login">Enter</string>
     <string name="author">Luis\' App</string>
     <string name="start_signOut">Sign Out</string>
     <string name="start_editInfo">Edit Info</string>
+    <string name="editInfo_button">Change Info</string>
     <string name="passwordHint">1234asdf</string>
     <string name="emailHint">luis@gmail.com</string>
+    <string name="nameHint">Luis</string>
+    <string name="yearsHint">18</string>
     <string name="cancel">Cancel</string>
 </resources>

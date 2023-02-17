@@ -52,13 +52,21 @@ public class EditInfoActivity extends AppCompatActivity {
 
         String name = nameEditText.getText().toString();
         String surname = surnameEditText.getText().toString();
-        int years = Integer.parseInt(yearsEditText.getText().toString());
+        String years = yearsEditText.getText().toString();
 
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("name", name);
-            jsonObject.put("surname", surname);
-            jsonObject.put("years", years);
+            if (!name.isEmpty() && name != null){
+                jsonObject.put("name", name);
+            }
+            if (!surname.isEmpty() && surname != null){
+                jsonObject.put("surname", surname);
+            }
+            if (!years.isEmpty() && years.toString() != null){
+                if (Integer.parseInt(years) > 0){
+                    jsonObject.put("years", Integer.parseInt(years));
+                }
+            }
         } catch (JSONException e) {
             Log.d("Json", e.getMessage());
         }
@@ -69,7 +77,7 @@ public class EditInfoActivity extends AppCompatActivity {
     public void editInfo(View view) {
         if(isLogged){
             String jsonData = generateJsonWithInput();
-            String result = MyMockAPI_UserInfo.PUT_UserInfo(email, jsonData, token);
+            MyMockAPI_UserInfo.PUT_UserInfo(email, jsonData, token);
 
             Intent intent = new Intent();
             setResult(RESULT_OK, intent);
