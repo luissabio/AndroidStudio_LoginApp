@@ -163,4 +163,11 @@ public class StartActivity extends AppCompatActivity {
             showUserInformation();
         }
     }
+
+    public void selectMaps(View view) {
+        if (isLogged){
+            Intent intent = new Intent(this, MapActivity.class);
+            startActivity(intent);
+        }
+    }
 }

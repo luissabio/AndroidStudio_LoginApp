@@ -4,6 +4,8 @@
 
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -15,6 +17,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LoginApplication"
         tools:targetApi="31">
+        <activity
+            android:name=".MapActivity"
+            android:exported="false"
+            android:label="@string/Map_activity"
+            android:parentActivityName=".StartActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".StartActivity" />
+        </activity>
         <activity
             android:name=".EditInfoActivity"
             android:exported="false"

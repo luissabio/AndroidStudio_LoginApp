@@ -5,6 +5,7 @@
     <string name="SignUp_activity">Sign Up</string>
     <string name="Start_activity">Start</string>
     <string name="EditInfo_activity">Edit Info</string>
+    <string name="Map_activity">Play with map</string>
     <string name="login_form_username">Username</string>
     <string name="login_form_password">Password</string>
     <string name="login_form_name">Name</string>
@@ -20,4 +21,5 @@
     <string name="yearsHint">18</string>
     <string name="cancel">Cancel</string>
     <string name="selectPhoto">Select photo</string>
+    <string name="selectMap">Play with maps</string>
 </resources>
