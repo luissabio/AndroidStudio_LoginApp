@@ -16,7 +16,6 @@ public class MyMockAPI_UserInfo {
         }
 
         return usersInfo.get(email);
-
     }
 
     public static String POST_UserInfo(String email, String info, String token) {
