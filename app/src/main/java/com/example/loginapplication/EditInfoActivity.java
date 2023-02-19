@@ -90,7 +90,7 @@ public class EditInfoActivity extends AppCompatActivity {
             if (!photo.isEmpty() && photo != null){
                 jsonObject.put("photo", photo);
             }
-        } catch (JSONException e) {
+        } catch (Exception e) {
             Log.d("Json", e.getMessage());
         }
 
