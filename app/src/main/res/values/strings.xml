@@ -19,4 +19,5 @@
     <string name="nameHint">Luis</string>
     <string name="yearsHint">18</string>
     <string name="cancel">Cancel</string>
+    <string name="selectPhoto">Select photo</string>
 </resources>

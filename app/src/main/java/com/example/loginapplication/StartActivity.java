@@ -4,9 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -57,7 +61,12 @@ public class StartActivity extends AppCompatActivity {
                 textViewKey.setText(key + ": ");
                 mLinearLayout.addView(textViewKey);
 
-                if (value instanceof String) {
+                if (key.equals("photo")) {
+                    ImageView imageView = new ImageView(this);
+                    imageView.setImageBitmap(stringToBitmap((String) value));
+                    mLinearLayout.addView(imageView);
+                }
+                else if (value instanceof String) {
                     TextView textViewValue = new TextView(this);
                     textViewValue.setText((String) value);
                     mLinearLayout.addView(textViewValue);
@@ -87,6 +96,11 @@ public class StartActivity extends AppCompatActivity {
         } catch (Exception e) {
             Log.d("Json", e.getMessage());
         }
+    }
+
+    private Bitmap stringToBitmap(String bitmapString) {
+        byte[] decodedString = Base64.decode(bitmapString, Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
     }
 
     private boolean sessionValidate(){
